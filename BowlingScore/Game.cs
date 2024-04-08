@@ -19,14 +19,13 @@ namespace BowlingScore
             while (GameFrames.Count <= 10)
             {
                 Frame frame = new Frame();
-                Roll roll = new Roll();
 
                 Console.WriteLine($"ROUND {GameFrames.Count + 1}, enter your rolls");
 
                 for (int i = 1; i < 3; i++)
                 {
                     Console.WriteLine($"Roll {i}");
-                    roll = _getUserInputRoll();
+                    Roll roll = Roll.RollFromUserInput();
                     frame.AddRoll(roll);
                     if (roll.GetKnockedPins() == 10)
                         break;
@@ -37,8 +36,9 @@ namespace BowlingScore
                 if (GameFrames.Count == 10 && (GameFrames[9].IsSpare() || GameFrames[9].IsStrike()))
                 {
                     Console.WriteLine($"Bonus roll!");
+                    Roll roll = new Roll();
                     roll.SetRollType(RollType.LastRoll);
-                    roll = _getUserInputRoll();
+                    roll = Roll.RollFromUserInput();
                     GameFrames[9].AddRoll(roll);
                 }
 
@@ -49,42 +49,6 @@ namespace BowlingScore
 
         }
 
-        private bool _canParseInput(string value)
-        {
-            if (Int32.TryParse(value, out int numValue))
-            {
-                return true;
-            }
-            else
-            {
-                Console.WriteLine($"Int32.TryParse could not parse '{value}' to an int.");
-                return false;
-            }
-        }
-        private Roll _getUserInputRoll()
-        {
-            while (true)
-            {
-                try
-                {
-                    string value = Console.ReadLine();
-                    if (_canParseInput(value))
-                    {
-                        Roll roll = new Roll();
-
-                        roll.SetKnockedPins(Int32.Parse(value));
-                        return roll;
-                    }
-                    else
-                    {
-                        Console.WriteLine($"Please enter a numeric value");
-                    }
-                }
-                catch (Exception)
-                {
-                    Console.WriteLine("Invalid value, please enter at number between 0 and 10");
-                }
-            }
-        }
+       
     }
 }
