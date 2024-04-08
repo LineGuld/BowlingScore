@@ -6,11 +6,9 @@ using System.Threading.Tasks;
 
 namespace BowlingScore.Util
 {
-    
        public enum RollType
         {
             Default,
             LastRoll
         }
-    
 }

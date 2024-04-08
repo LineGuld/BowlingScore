@@ -7,8 +7,6 @@ namespace BowlingScoreTest
 {
     public class Tests
     {
-       
-
         [Test]
         public void CorrectScoreAfterFirstFrame()
         {
@@ -39,7 +37,6 @@ namespace BowlingScoreTest
 
             Assert.That(game.GamesScore, Is.EqualTo(14));
         }
-
 
         [Test]
         public void CorrectScoreAfterThirdFrame()

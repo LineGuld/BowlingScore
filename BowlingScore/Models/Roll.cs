@@ -35,18 +35,6 @@ namespace BowlingScore.Models
             }
         }
 
-        private static bool _canParseInput(string value)
-        {
-            if (Int32.TryParse(value, out int numValue))
-            {
-                return true;
-            }
-            else
-            {
-                Console.WriteLine($"Int32.TryParse could not parse '{value}' to an int.");
-                return false;
-            }
-        }
         public static Roll RollFromUserInput()
         {
             while (true)
@@ -69,6 +57,19 @@ namespace BowlingScore.Models
                 {
                     Console.WriteLine("Invalid value, please enter at number between 0 and 10");
                 }
+            }
+        }
+
+        private static bool _canParseInput(string value)
+        {
+            if (Int32.TryParse(value, out int numValue))
+            {
+                return true;
+            }
+            else
+            {
+                Console.WriteLine($"Int32.TryParse could not parse '{value}' to an int.");
+                return false;
             }
         }
     }

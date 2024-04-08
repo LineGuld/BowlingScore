@@ -49,7 +49,7 @@ namespace BowlingScore.Models
                 }
             }
         }
-
+        
         public bool IsSpare()
         {
             if (!IsStrike() && Rolls[0].GetKnockedPins() + Rolls[1].GetKnockedPins() == 10)
