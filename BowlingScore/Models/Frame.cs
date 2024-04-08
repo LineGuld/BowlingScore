@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BowlingScore.Util;
 
 namespace BowlingScore.Models
 {
@@ -37,21 +38,17 @@ namespace BowlingScore.Models
 
         public bool IsSpare()
         {
-            if (Rolls.Count == 2)
-            {
-                if (Rolls[0].GetKnockedPins() + Rolls[1].GetKnockedPins() == 10)
-                { return true; }
-            }
+            if (Rolls[0].GetKnockedPins() + Rolls[1].GetKnockedPins() == 10)
+            { return true; }
+
             return false;
         }
 
         public bool IsStrike()
         {
-            if (Rolls.Count == 1)
-            {
-                if (Rolls[0].GetKnockedPins() == 10)
-                { return true; }
-            }
+            if (Rolls[0].GetKnockedPins() == 10 && Rolls[1].GetKnockedPins() == 0)
+            { return true; }
+
             return false;
         }
     }

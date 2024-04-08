@@ -1,17 +1,14 @@
-﻿using System;
+﻿using BowlingScore.Util;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace BowlingScore.Models
 {
 
-    enum RollType
-    {
-        Default,
-        LastRoll
-    }
     class Roll
     {
         private RollType _rollType;
@@ -26,7 +23,7 @@ namespace BowlingScore.Models
         public int GetKnockedPins() { return _knockedPins; }
         public void SetKnockedPins(int pins)
         {
-            if (pins > 0 && pins <= 10)
+            if (pins >= 0 && pins <= 10)
             {
                 _knockedPins = pins;
             }
