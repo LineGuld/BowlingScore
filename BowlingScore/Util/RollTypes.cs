@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace BowlingScore.Util
 {
     
-        enum RollType
+       public enum RollType
         {
             Default,
             LastRoll

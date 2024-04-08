@@ -8,13 +8,27 @@ using BowlingScore.Util;
 
 namespace BowlingScore.Models
 {
-    class Frame
+    public class Frame
     {
         public IList<Roll> Rolls;
 
         public Frame()
         {
             Rolls = new List<Roll>();
+        }
+
+        //Used for testing
+        public Frame(int roll1, int roll2)
+        {
+            Rolls = new List<Roll>();
+            Roll firstRoll = new Roll();
+            firstRoll.SetKnockedPins(roll1);
+
+            Roll seconddRoll = new Roll();
+            seconddRoll.SetKnockedPins(roll2);
+
+            Rolls.Add(firstRoll);
+            Rolls.Add(seconddRoll);
         }
 
         public void AddRoll(Roll roll)
@@ -38,7 +52,7 @@ namespace BowlingScore.Models
 
         public bool IsSpare()
         {
-            if (Rolls[0].GetKnockedPins() + Rolls[1].GetKnockedPins() == 10)
+            if (!IsStrike() && Rolls[0].GetKnockedPins() + Rolls[1].GetKnockedPins() == 10)
             { return true; }
 
             return false;

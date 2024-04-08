@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace BowlingScore.Models
 {
 
-    class Roll
+    public class Roll
     {
         private RollType _rollType;
         private int _knockedPins;
@@ -71,6 +71,5 @@ namespace BowlingScore.Models
                 }
             }
         }
-
     }
 }

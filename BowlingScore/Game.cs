@@ -7,10 +7,11 @@ using BowlingScore.Util;
 
 namespace BowlingScore
 {
-    class Game
+   public class Game
     {
         public IList<Frame> GameFrames { get; set; }
         public int GamesScore;
+        private static int _framesInGame = 10;
 
         public Game()
         {
@@ -18,7 +19,7 @@ namespace BowlingScore
         }
         public void playGame()
         {
-            while (GameFrames.Count < 10)
+            while (GameFrames.Count < _framesInGame)
             {
                 Frame frame = new Frame();
 
@@ -29,7 +30,7 @@ namespace BowlingScore
                     Console.WriteLine($"Roll {i}");
                     Roll roll = Roll.RollFromUserInput();
                     frame.AddRoll(roll);
-                    if (roll.GetKnockedPins() == 10 && frame.Rolls.Count == 1)
+                    if (roll.GetKnockedPins() == _framesInGame && frame.Rolls.Count == 1)
                     {
                         Roll roll2 = new Roll();
                         roll2.SetKnockedPins(0);
@@ -40,7 +41,7 @@ namespace BowlingScore
 
                 GameFrames.Add(frame);
 
-                if (GameFrames.Count == 10 && (GameFrames[9].IsSpare() || GameFrames[9].IsStrike()))
+                if (GameFrames.Count == _framesInGame && (GameFrames[9].IsSpare() || GameFrames[9].IsStrike()))
                 {
                     Console.WriteLine($"Bonus roll!");
                     Roll roll = new Roll();
@@ -48,6 +49,7 @@ namespace BowlingScore
                     roll = Roll.RollFromUserInput();
                     GameFrames[9].AddRoll(roll);
                 }
+
                 CalculateScore();
                 Console.WriteLine($"CURRENT SCORE: {GamesScore}");
             }
@@ -61,20 +63,25 @@ namespace BowlingScore
 
                 GamesScore = GamesScore + frame.Rolls[0].GetKnockedPins() + frame.Rolls[1].GetKnockedPins();
 
-                if (frame.IsSpare() && GameFrames.Count > i + 2)
+                if (frame.IsSpare() && (GameFrames.Count > i + 1 || GameFrames.Count == _framesInGame) )
                 {
-
+                    if (i== _framesInGame-1 )
+                    {
+                        GamesScore = GamesScore + GameFrames[_framesInGame-1].Rolls[2].GetKnockedPins();
+                    }
+                    else
                     GamesScore = GamesScore + GameFrames[i + 1].Rolls[0].GetKnockedPins();
-
                 }
-                if (frame.IsStrike() && GameFrames.Count > i + 2)
+
+                if (frame.IsStrike() && (GameFrames.Count > i + 1 || GameFrames.Count == _framesInGame))
                 {
-
-                    GamesScore = GamesScore + GameFrames[i + 1].Rolls[0].GetKnockedPins() + GameFrames[i + 1].Rolls[0].GetKnockedPins();
-
+                    if (i == _framesInGame-1 )
+                    {
+                        GamesScore = GamesScore + GameFrames[_framesInGame-1].Rolls[2].GetKnockedPins();
+                    }
+                    else
+                    GamesScore = GamesScore + GameFrames[i + 1].Rolls[0].GetKnockedPins() + GameFrames[i + 1].Rolls[1].GetKnockedPins();
                 }
-                
-
             }
         }
     }
