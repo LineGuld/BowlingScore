@@ -16,7 +16,7 @@ namespace BowlingScore
         }
         public void playGame()
         {
-            while (GameFrames.Count <= 10)
+            while (GameFrames.Count < 10)
             {
                 Frame frame = new Frame();
 
