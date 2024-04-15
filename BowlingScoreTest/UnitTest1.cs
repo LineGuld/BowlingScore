@@ -16,7 +16,7 @@ namespace BowlingScoreTest
             };
 
             Game game = new Game();
-            game.GameFrames = GameFrames;
+            Game.GameFrames = GameFrames;
             game.CalculateScore();
 
             Assert.That(game.GamesScore, Is.EqualTo(5));
@@ -32,7 +32,7 @@ namespace BowlingScoreTest
             };
 
             Game game = new Game();
-            game.GameFrames = GameFrames;
+            Game.GameFrames = GameFrames;
             game.CalculateScore();
 
             Assert.That(game.GamesScore, Is.EqualTo(14));
@@ -49,7 +49,7 @@ namespace BowlingScoreTest
             };
 
             Game game = new Game();
-            game.GameFrames = GameFrames;
+            Game.GameFrames = GameFrames;
             game.CalculateScore();
 
             Assert.That(game.GamesScore, Is.EqualTo(24));
@@ -67,7 +67,7 @@ namespace BowlingScoreTest
             };
 
             Game game = new Game();
-            game.GameFrames = GameFrames;
+            Game.GameFrames = GameFrames;
             game.CalculateScore();
 
             Assert.That(game.GamesScore, Is.EqualTo(39));
@@ -86,7 +86,7 @@ namespace BowlingScoreTest
             };
 
             Game game = new Game();
-            game.GameFrames = GameFrames;
+            Game.GameFrames = GameFrames;
             game.CalculateScore();
 
             Assert.That(game.GamesScore, Is.EqualTo(59));
@@ -106,7 +106,7 @@ namespace BowlingScoreTest
             };
 
             Game game = new Game();
-            game.GameFrames = GameFrames;
+            Game.GameFrames = GameFrames;
             game.CalculateScore();
 
             Assert.That(game.GamesScore, Is.EqualTo(61));
@@ -127,7 +127,7 @@ namespace BowlingScoreTest
             };
 
             Game game = new Game();
-            game.GameFrames = GameFrames;
+            Game.GameFrames = GameFrames;
             game.CalculateScore();
 
             Assert.That(game.GamesScore, Is.EqualTo(71));
@@ -149,7 +149,7 @@ namespace BowlingScoreTest
             };
 
             Game game = new Game();
-            game.GameFrames = GameFrames;
+            Game.GameFrames = GameFrames;
             game.CalculateScore();
 
             Assert.That(game.GamesScore, Is.EqualTo(87));
@@ -172,7 +172,7 @@ namespace BowlingScoreTest
             };
 
             Game game = new Game();
-            game.GameFrames = GameFrames;
+            Game.GameFrames = GameFrames;
             game.CalculateScore();
 
             Assert.That(game.GamesScore, Is.EqualTo(107));
@@ -201,10 +201,39 @@ namespace BowlingScoreTest
             GameFrames[9].AddRoll(bonusRoll);
 
             Game game = new Game();
-            game.GameFrames = GameFrames;
+            Game.GameFrames = GameFrames;
             game.CalculateScore();
 
             Assert.That(game.GamesScore, Is.EqualTo(133));
+        }
+
+        [Test]
+        public void PerfectGame()
+        {
+            IList<Frame> GameFrames = new List<Frame>()
+            {
+                new Frame(10, 0),
+                new Frame(10, 0),
+                new Frame(10, 0),
+                new Frame(10, 0),
+                new Frame(10, 0),
+                new Frame(10, 0),
+                new Frame(10, 0),
+                new Frame(10, 0),
+                new Frame(10, 0),
+                new Frame(10, 10),
+            };
+
+            Roll bonusRoll = new Roll();
+            bonusRoll.SetRollType(RollType.LastRoll);
+            bonusRoll.SetKnockedPins(10);
+            GameFrames[9].AddRoll(bonusRoll);
+
+            Game game = new Game();
+            Game.GameFrames = GameFrames;
+            game.CalculateScore();
+
+            Assert.That(game.GamesScore, Is.EqualTo(300));
         }
     }
 }

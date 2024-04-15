@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BowlingScore.Models.Scoing;
 using BowlingScore.Util;
 
 namespace BowlingScore.Models
@@ -11,10 +12,12 @@ namespace BowlingScore.Models
     public class Frame
     {
         public IList<Roll> Rolls;
+        IScoreStrategy scoringStrategy;
 
         public Frame()
         {
             Rolls = new List<Roll>();
+            IScoreStrategy scoringStrategy = new NormalScoreStrategy();
         }
 
         //Used for testing
@@ -53,7 +56,10 @@ namespace BowlingScore.Models
         public bool IsSpare()
         {
             if (!IsStrike() && Rolls[0].GetKnockedPins() + Rolls[1].GetKnockedPins() == 10)
-            { return true; }
+            {
+                scoringStrategy = new SpareScoreStrategy();
+                return true; 
+            }
 
             return false;
         }
@@ -61,9 +67,22 @@ namespace BowlingScore.Models
         public bool IsStrike()
         {
             if (Rolls[0].GetKnockedPins() == 10 && Rolls[1].GetKnockedPins() == 0)
-            { return true; }
-
+            {
+                scoringStrategy = new StrikeScoreStrategy();
+                return true; 
+            }
             return false;
+        }
+
+        public int CalculateScore()
+        {   
+            if(scoringStrategy == null)
+            {
+                scoringStrategy = new NormalScoreStrategy();
+            }
+            IsStrike();
+            IsSpare();
+            return scoringStrategy.CalcuateScore(this, Game.GameFrames, Game.GameFrames.IndexOf(this));
         }
     }
 }
